@@ -1,0 +1,59 @@
+// this program accepts an array of integers and returns the value of a number taken by all of the elements
+// of the array summing the number and 1
+// input: []int{5,0,4,2}; output: [5,0,4,3]
+
+package main
+
+import (
+	"bytes"
+	"fmt"
+	"strconv"
+)
+
+var arrayOfSomething []int
+var newArray []int
+var buffer bytes.Buffer
+
+func main() {
+
+	arrayOfSomething = []int{1, 0, 4, 3} // example value
+	toPrint := reverseArray(divideNumber(addOne(stringToNumber(fromArrayToString(arrayOfSomething)))))
+	fmt.Println(toPrint)
+
+}
+
+func fromArrayToString(arrayOfNumbers []int) string {
+	for _, numbers := range arrayOfNumbers {
+		toString := strconv.Itoa(numbers)
+		buffer.WriteString(toString)
+	}
+	return buffer.String()
+}
+
+func stringToNumber(someString string) int {
+	someFutureNumber, err := strconv.Atoi(someString)
+	if err != nil {
+		fmt.Println("Some error occured.")
+	}
+	return someFutureNumber
+}
+
+func addOne(someNumber int) int {
+	return someNumber + 1
+}
+
+func divideNumber(someNumber int) []int {
+	for someNumber > 0 {
+		remainder := someNumber % 10
+		someNumber = someNumber / 10
+		newArray = append(newArray, remainder)
+	}
+	return newArray
+}
+
+func reverseArray(someArrayToReverse []int) []int {
+	for i, j := 0, len(someArrayToReverse)-1; i < len(someArrayToReverse)-1 && j > 0; i, j = i+1, j-1 {
+		someArrayToReverse[i], someArrayToReverse[j] = someArrayToReverse[j], someArrayToReverse[i]
+	}
+	return someArrayToReverse
+}
